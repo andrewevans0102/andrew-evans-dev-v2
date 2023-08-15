@@ -4,6 +4,7 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import GoogleAnalytics from "../components/GoogleAnalytics.astro";
+import Comments from "../components/Comments";
 
 type Props = CollectionEntry<"blog">["data"];
 
@@ -79,6 +80,13 @@ const { title, pubDate, heroImage, snippet } =
       .prose > a {
         color: "orange";
       }
+
+      .comments {
+        width: 720px;
+        max-width: calc(100% - 2em);
+        margin: auto;
+        padding: 1em;
+      }
     </style>
   </head>
 
@@ -106,6 +114,9 @@ const { title, pubDate, heroImage, snippet } =
             <hr />
           </div>
           <slot />
+        </div>
+        <div class="comments">
+          <Comments client:only="react" />
         </div>
       </article>
     </main>
