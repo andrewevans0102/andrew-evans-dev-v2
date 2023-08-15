@@ -1,5 +1,7 @@
 # Andrew Evans Personal Blog Site
 
+![home page](./README_IMAGES/HomePage.jpg)
+
 Welcome! This is my personal blog site which I try to update regularly.
 
 This site replaces my previous personal blog RhythmAndBinary.com.
@@ -21,3 +23,5 @@ Some features that the site has include:
 - Ability to search posts by title
 
 Thanks for stopping by!
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/66772f97-50a2-4e99-8452-80449cb3b4fd/deploy-status)](https://app.netlify.com/sites/bejewelled-sable-cd2aaf/deploys)
