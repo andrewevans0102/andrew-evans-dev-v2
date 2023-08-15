@@ -1,59 +1,60 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import GoogleAnalytics from "../components/GoogleAnalytics.astro";
 ---
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<GoogleAnalytics />
-		<style>
-			.profile {
-				margin: 0 auto;
-			}
-			img {
-				width: 200px;
-				height: 100%;
-				margin: 10px;
-			}
-			p {
-				max-width: 400px;
-				padding-top: 0px;
-				margin-top: 0px;
-			}
-			section {
-				display: flex;
-				flex-wrap: wrap;
-				align-items: start;
-			}
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <GoogleAnalytics />
+    <style>
+      .profile {
+        margin: 0 auto;
+      }
+      img {
+        width: 200px;
+        height: 100%;
+        margin: 10px;
+      }
+      p {
+        max-width: 400px;
+        padding-top: 0px;
+        margin-top: 0px;
+      }
+      section {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: start;
+      }
 
-			:global(.dark) h1 {
-				font-size: 3.052em;
-				color: var(--dark-color);
-			}
-		</style>
-	</head>
-	<body>
-		<Header title={SITE_TITLE} />
-		<main>
-			<h1>Hello!</h1>
-			<section>
-				<p>
-					Welcome! My name is Andrew Evans, and I am a Software Engineer with 10+ years 
-					of industry experience. I love writing about technology, sharing knowledge, and 
-					enjoying outdoor activities with my family. I also enjoy woodworking and 
-					share my latest projects on Instagram. Follow this page to see the latest 
-					things I'm working on and learning. Thanks for stopping by!
-				</p>
-				<div class="profile">
-					<img src="HomePicture.jpg" />
-				</div>
-			</section>
-		</main>
-		<Footer />
-	</body>
+      :global(.dark) h1 {
+        font-size: 3.052em;
+        color: var(--dark-color);
+      }
+    </style>
+  </head>
+  <body>
+    <Header title={SITE_TITLE} />
+    <main>
+      <h1>Hello!</h1>
+      <section>
+        <p>
+          Welcome! My name is Andrew Evans, and I am a Software Engineer with
+          10+ years of industry experience. I love writing about technology,
+          sharing knowledge, and enjoying outdoor activities with my family. I
+          also enjoy woodworking and share my latest projects on Instagram.
+          Follow this page to see the latest things I'm working on and learning.
+          Thanks for stopping by!
+        </p>
+        <div class="profile">
+          <img src="HomePicture.jpg" alt="profile picture of andrew evans" />
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </body>
 </html>
