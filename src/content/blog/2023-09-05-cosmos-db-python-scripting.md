@@ -57,7 +57,7 @@ The Azure Cosmos DB Python SDK allows you to do all the basic Create, Read, Upda
 
 In my sample project, if you look at the file `scripts/data_load.py` you'll see I did this with some sample Electronic Vehicle Data. I retrieved the vehicle data from [catalog.data.gov](https://catalog.data.gov/dataset/electric-vehicle-population-data) and used it for my research since it was free and a fairly large dataset.
 
-To upload values into a Cosmos DB instance, I used Python Pandas to read in the `.csv` file and then the Azure `create_item` function and did the following:
+To upload values into a Cosmos DB instance, I used Python Pandas to read in the `.csv` file and then the Azure `create_item` method and did the following:
 
 ```python
 # read in original data file
@@ -101,7 +101,7 @@ With that, my database was loaded and I could do the CRUD operations. You could 
 
 ## Querying Data
 
-When you work with Cosmos DB, one of the most frequent things you'll have to do is to query data. You may need to look for a specific value, or pull a set of records that may need to be fixed. Whatever the case, you can use the `query_items` function to directly pass in a query and retrieve values. In my sample project, I did this in the `scripts/data-query.py` file with the following two functions:
+When you work with Cosmos DB, one of the most frequent things you'll have to do is to query data. You may need to look for a specific value, or pull a set of records that may need to be fixed. Whatever the case, you can use the `query_items` method to directly pass in a query and retrieve values. In my sample project, I did this in the `scripts/data-query.py` file with the following two functions:
 
 ```python
 def query_values_with_vin(container, vin):
@@ -119,7 +119,7 @@ def query_values_with_city(container, city):
         print(json.dumps(item, indent=True))
 ```
 
-Since my data was all electric vehicles, the Vehicle Identification Number (VIN) was important. I also knew that something like City, would potentially be important with this data so I wrote two functions to showcase the `query_items` function in action.
+Since my data was all electric vehicles, the Vehicle Identification Number (VIN) was important. In the case of the dataset I used, the VIN is actually just the first 10 values instead of a full VIN number. Regardless, I could still use it as a search criteria in my Cosmos DB query. I also knew that something like City, would potentially be important with this data so I wrote a second function for that selection. Both of my custom functions showcase the SDK container `query_items` method in action.
 
 If you notice in the `SELECT` clause of the query I specify a `WHERE` to select the values I need. I could further customize this query for a more refined search.
 
@@ -127,7 +127,7 @@ If you notice in the `SELECT` clause of the query I specify a `WHERE` to select 
 
 Deleting data may also be a normal function for you. Especially in a situation where you need to maintain a Cosmos DB instance and potentially cleanup errors from customers.
 
-In my sample project, in the `scripts/data_delete.py` I used the `delete_item` function from the SDK to be able to delete individual records that I had retrieved. I started with a query function to get values based on a VIN:
+In my sample project, in the `scripts/data_delete.py` I used the `delete_item` method from the SDK to be able to delete individual records that I had retrieved. I started with a query function to get values based on a VIN:
 
 ```python
 def query_values_with_vin(container, vin):
@@ -176,7 +176,7 @@ for item in queried_values:
     item["ElectricVehicleType"] = "hey this is an update of the electronic vehicle type"
 ```
 
-With the values updated locally, I then perist them to the Cosmos DB instance with the `upsert_item` function:
+With the values updated locally, I then perist them to the Cosmos DB instance with the `upsert_item` method:
 
 ```python
 # in Azure updating and inserting is considered an Upsert
