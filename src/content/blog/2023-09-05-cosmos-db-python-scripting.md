@@ -1,7 +1,7 @@
 ---
 title: Cosmos DB Python Scripting
 pubDate: 2023-09-05T15:00:08.861Z
-snippet: "In light of everything going on with the Coronavirus, I thought it might be helpful to do a short post covering different video conferencing applications. Many folks are working remotely, and it woul"
+snippet: "Recently I've been working a lot with an Azure Cosmos DB instance. I ran into an issue where I wanted to easily query and edit data, but also have my work saved in a way I could easily run later. Azure already has a data explorer where I can do queries, but I wanted to have scripts that I could use to run routine cleanup and other functions. After some research, I"
 heroImage: /images/COSMOS_DB_WITH_PYTHON.jpg
 tags: ["azure", "python"]
 ---
