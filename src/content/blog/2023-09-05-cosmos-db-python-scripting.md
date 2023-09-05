@@ -17,7 +17,12 @@ pip3 install azure-cosmos
 pip3 install azure-identity
 ```
 
-I also used [Python Pandas](https://pandas.pydata.org/) for the data load portion, but this wasn't necessary if you do not want to use Pandas.
+I also used [Python Pandas](https://pandas.pydata.org/) for the data load portion and [Python Dotenv](https://pypi.org/project/python-dotenv/) for reading from a `.env` file. If you want to install those do the following with pip3:
+
+```bash
+pip3 install pandas
+pip3 install python-dotenv
+```
 
 ## Setting up your Script
 
