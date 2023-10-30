@@ -235,13 +235,15 @@ So far I've covered how Azure Service Bus works, and walked through a few of the
 
 To show a more realistic example, let's look at a small project I created to get notifications about my dog Harvey and our 2 cats (Chessie and Rey). Just as a disclaimer, I know this is also a very simple project, but it showcases connected processes similar to what you'd see in a larger scale implementation.
 
+Here are some pictures of Harvey, Chessie, and Rey (more at the bottom of the post):
+
 ![Harvey](/images/HARVEY.jpg)
 
-> Here is our Dog Harvey
+> Harvey
 
 ![Chessie and Rey](/images/CHESSIE_REY.jpg)
 
-> Here are our cats Chessie and Rey (on one of their birthdays of course)
+> Chessie and Rey (on one of their birthdays of course)
 
 The problem I wanted to solve is to create a way to notify my wife when I did things like feed the cats, feed the dog etc. We did this manually with notes or text messages, but I thought it'd be fun to have an automated way of doing this. Since I was learning about Azure Service Bus, I decided to create a very simple application that uses the Service Bus with Functions to send notifications via Twilio.
 
@@ -261,9 +263,17 @@ In order to create a frontend for this, I used [Home Assistant](https://www.home
 
 ![evans animals 1](/images/EVANS_ANIMALS1.jpg)
 
+Both functions that I have written were in TypeScript. I'm only sharing selected portions of my project. If you'd like to write your own TypeScript functions, please refer to the [typescript tutorial](https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-typescript?tabs=macos%2Cazure-cli%2Cbrowser&pivots=nodejs-model-v4) and the [Azure Service Bus Trigger Function tutorial](https://learn.microsoft.com/en-us/azure/azure-functions/functions-bindings-service-bus-trigger?tabs=python-v2%2Cisolated-process%2Cnodejs-v4%2Cextensionv5&pivots=programming-language-typescript).
+
 The `HTTP function` that I wrote, (1) takes in a command value from the request body, and (2) selects the enum value and sends it to a Queue as a message. The portions of the HTTP function that do this look like the following:
 
 ```javascript
+import {
+    HttpRequest,
+    InvocationContext,
+} from '@azure/functions';
+import { ServiceBusClient } from '@azure/service-bus';
+
 // enum for the commands
 enum CommandValue {
     'Harvey Fed' = 0,
@@ -369,8 +379,6 @@ export async function AzureServiceBusQueueTrigger(
 }
 ```
 
-These are only selected portions of my project. If you'd like to write your own functions, please refer to the [typescript tutorial](https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-typescript?tabs=macos%2Cazure-cli%2Cbrowser&pivots=nodejs-model-v4) and the [Azure Service Bus Trigger Function tutorial](https://learn.microsoft.com/en-us/azure/azure-functions/functions-bindings-service-bus-trigger?tabs=python-v2%2Cisolated-process%2Cnodejs-v4%2Cextensionv5&pivots=programming-language-typescript).
-
 Finally, when the messages are sent, here are some example text messages:
 
 ![evans animals 2](/images/EVANS_ANIMALS_2.jpg)
@@ -379,4 +387,10 @@ As I said in the intro, I know this is a very simple application. However, hopef
 
 ## Conclusion
 
-In this post I went over some basics about the Azure Service Bus. I walked through ways you could utilize the service in a distributed application, and demonstrated a simple example in code. I also included a more realistic example where I used a Service Bus to notify my wife when we take care of our pets. I hope you were encouraged by reading this post to learn more about Azure Service Bus. It is a very powerful technology, and a relatively simple process to get started. For projects both small and large, the use of Azure Service Bus can definitely be beneficial. In this post I only touched on a few features, but there are a lot of other potential things with Service Bus that you could utilize for your applications. I highly recommend reviewing [Microsoft's Documentation on Azure Service Bus](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview) and trying it out for yourself. Thanks for reading my post!
+In this post I went over some basics about the Azure Service Bus. I walked through ways you could utilize the service in a distributed application, and demonstrated a simple example in code. I also included a more realistic example where I used a Service Bus to notify my wife when we take care of our pets. I hope you were encouraged by reading this post to learn more about Azure Service Bus. It is a very powerful technology, and a relatively simple process to get started. For projects both small and large, the use of Azure Service Bus can definitely be beneficial. In this post I only touched on a few features, but there are a lot of other potential things with Service Bus that you could utilize for your applications. I highly recommend reviewing [Microsoft's Documentation on Azure Service Bus](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview) and trying it out for yourself.
+
+As promised, here are some additional pictures of Harvey, Chessie and Rey. Thanks for reading my post!
+
+![Harvey Collage](/images/HARVEY_COLLAGE.jpeg)
+
+![Chessie and ReyRey College](/images/CHESSIE_REY_COLLAGE.jpeg)
