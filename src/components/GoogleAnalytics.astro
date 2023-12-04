@@ -1,12 +1,18 @@
 ---
-import { GOOGLE_ANALYTICS_TAG_ID } from '../consts';
+import { GOOGLE_ANALYTICS_TAG_ID } from "../consts";
 ---
-<script type="text/partytown" src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_TAG_ID}`}></script>
+
+<script
+  type="text/partytown"
+  src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_TAG_ID}`}
+></script>
 
 <script type="text/partytown" define:vars={{ GOOGLE_ANALYTICS_TAG_ID }}>
   window.dataLayer = window.dataLayer || [];
   function gtag() {
-    window.dataLayer.push(arguments);
+    if (window.location.href.includes("localhost") === false) {
+      window.dataLayer.push(arguments);
+    }
   }
   gtag("js", new Date());
   gtag("config", GOOGLE_ANALYTICS_TAG_ID);
