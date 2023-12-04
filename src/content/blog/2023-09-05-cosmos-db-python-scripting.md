@@ -8,7 +8,7 @@ tags: ["azure", "python"]
 
 Recently I've been working a lot with an Azure Cosmos DB instance. I ran into an issue where I wanted to easily query and edit data, but also have my work saved in a way I could easily run later. Azure already has a data explorer where I can do queries, but I wanted to have scripts that I could use to run routine cleanup and other functions. After some research, I came upon the [Azure Cosmos DB Python SDK](https://azuresdkdocs.blob.core.windows.net/$web/python/azure-cosmos/4.0.0/index.html). With the Python SDK, I was able to build out some basic scripts that I could use in my day to day tasks. Additionally, when I do things like bug fixes and other maintenance tasks I could script out what I did to refer to in the future. In this post I'm going to walkthrough a sample of what I did, and demonstrate ways that you could do the same for your project. My sample project [is available on GitHub](https://github.com/andrewevans0102/cosmos-db-python-scripting) and I'd recommend doing a clone of that to follow along.
 
-## Prequiste Packages
+## Prerequisite Packages
 
 In order to work with the Azure Cosmos DB Python SDK, you should already have your local machine setup with Python and the appropriate packages. The [Azure Tutorial](https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/quickstart-python?tabs=azure-portal%2Cpasswordless%2Clinux%2Csign-in-azure-cli%2Csync) outlines most of this setup, but just for reference i specifically had to add the following two packages with pip3:
 
