@@ -1,6 +1,6 @@
 ---
 title: Azure SignalR Service Intro
-pubDate: 2023-11-13T19:27:44.068Z
+pubDate: 2024-01-03T18:09:04.090Z
 snippet: "The Azure SignalR Service is a great technology that enables real time updates in web applications. Real time updates are really important in applications that are used for collaboration or have data that changes quickly. I have used it on a few applications, and wanted to put together a quickstart for using it in projects."
 heroImage: /images/AZURE_SIGNALR_SERVICE_INTRO.jpg
 tags: [azure, react]
@@ -8,7 +8,7 @@ tags: [azure, react]
 
 [The Azure SignalR Service](https://learn.microsoft.com/en-us/azure/azure-signalr/signalr-overview) is a great technology that enables real time updates in web applications. Real time updates are really important in applications that are used for collaboration or have data that changes quickly. I have used it on a few applications, and wanted to put together a quickstart for using it in projects.
 
-This post is going to introduce Azure's SignalR Service and show how you can setup a project to use it. I'll be referring to [my sample project on GitHub](https://www.github.com/andrewevans0102/azure-signalr-service-intro), and recommend checking that out when you have time. Most of this post is basically a copy of my sample project's README. If you'd like to see more examples, please check out the [Microsoft tutorials](https://learn.microsoft.com/en-us/aspnet/core/tutorials/signalr?view=aspnetcore-8.0&tabs=visual-studio).
+This post is going to introduce Azure's SignalR Service and show how you can setup a project to use it. I'll be referring to [my sample project on GitHub](https://www.github.com/andrewevans0102/azure-signalr-service-intro), and recommend checking that out when you have time. If you'd like to see more examples, please check out the [Microsoft tutorials](https://learn.microsoft.com/en-us/aspnet/core/tutorials/signalr?view=aspnetcore-8.0&tabs=visual-studio).
 
 ## What is Azure's SignalR Service?
 
@@ -23,7 +23,7 @@ The main parts of these process are:
 3. an instance of the Azure SignalR Service
 4. one or more webclients that connect to the SignalR Service instance via the `negotiate` Azure Function
 
-The way the process works is basically the following (also copied from my sample project):
+The way the process works is basically the following:
 
 1. A web client calls a `negotiate` function which asks the SignalR service if a connection can be created.
 2. If successful, the web client then is given a persistent connection (via WebSocket) that is used to listen for messages
@@ -58,9 +58,13 @@ useMemo(() => {
             .build();
 
         // create listener method that responds when messages sent
+        // note it is listening to the "newMessage" event
         connection.on('newMessage', (message) => {
+            // show loading animation based on local state
             setLoading(true);
+            // persist the values retrieved
             setMessages((prevMessages) => [...prevMessages, message]);
+            // turn off loading indicator since values have been retrieved
             setLoading(false);
         });
 
@@ -76,13 +80,15 @@ useMemo(() => {
 }, []);
 ```
 
-In addition to the above setup, you can also use [groups in Azure SignalR](https://learn.microsoft.com/en-us/aspnet/core/signalr/groups?view=aspnetcore-7.0) which is another way to control who can listen to messages. The example above does not use groups, but they could be added for more control over the process.
+Since the above was used in a React project, it is leveraging a `useMemo` hook. If you were to use a different framework or library for your Frontend, you would still follow the same pattern but place your code accordingly. The important part of the above is just understanding how to use the npm package properly.
 
-In the next few sections, I'm going to walkthrough what you would do to setup a SignalR instance and then a web client to connect to it. As I stated in the intro, this is largely copied from the README section of [my sample project on GitHub](https://www.github.com/andrewevans0102/azure-signalr-service-intro).
+In addition to the above setup, you can also use [groups in Azure SignalR](https://learn.microsoft.com/en-us/aspnet/core/signalr/groups?view=aspnetcore-7.0) which is another way to control who can listen to messages. The example above does not use groups, but they could be added for more control over the process. In addition to the `broadcast` and `negotiate` functions, you could create a function to add users to groups. The client object in either the C# module or npm package has a function which enables you to add a user to a group. The additional step to the original process would just be that you add a call to this additional function and basically register a user with a group so their connection retrieves messages specific to that group. I recommend consulting the link above if you want to learn more.
+
+In the next few sections, I'm going to walkthrough what you would do to setup a SignalR instance and then a web client to connect to it. As I stated in the intro, please refer to [my sample project on GitHub](https://www.github.com/andrewevans0102/azure-signalr-service-intro) for more info as you follow along.
 
 ## What prerequisites do I need to get started?
 
-One of the best parts about Azure, is that you can easily follow creating infrastructure directly in the console. To use SignalR, just go to the SignalR service in the console and fill out the applicable fields for your instance.
+One of the best parts about Azure is that you can easily create infrastructure directly in the console. To use SignalR, just go to the SignalR service in the console and fill out the applicable fields for your instance.
 
 Other than the self explanatory fields, make sure to choose "serverless" for the "service mode."
 
@@ -130,9 +136,9 @@ You can test out all of these connections locally, or you could take it a step f
 
 To test everything out locally:
 
-1. Open up two terminal sessions:
+1. First clone my sample GitHub project, and then open up two terminal sessions:
 
-- go to the `functions` folder and run `npm run start` to star the functions locally
+- Go to the `functions` folder and run `npm run start` to start the functions locally
 - second terminal, go to the folder that is housing your web project and call the run command from the terminal (in my sample project this is at the `website` folder and you run `npm run dev` to see the project running locally)
 
 ![step 7](/images/AZURE_SIGNALR_STEP_7.jpg)
@@ -141,16 +147,40 @@ To test everything out locally:
 
 ![step 8](/images/AZURE_SIGNALR_STEP_8.jpg)
 
-Now if you enter a message into the input field and click "send message" you should see the functions called and a message sent displayed on the browser. You can now go back to the Azure console and check the "Activity Log" and see the messages sent.
+Now if you enter a message into the input field and click "send message" you should see the functions called, and a message sent displayed on the browser.
 
 ![step 9A](/images/AZURE_SIGNALR_STEP_9A.jpg)
 
-![step 9B](/images/AZURE_SIGNALR_STEP_9B.jpg)
+Congratulations! You've got a SignalR instance setup and a web client that will connect to it. The next steps would probably be to add authentication and also package your app for deployment.
 
-When you finish, make sure to go back and delete the SignalR instance (unless you want to use it for a project).
+## Message Tracing
+
+Azure's SignalR service provides a tracing tool that lets you verify that messages are sent as well as a lot of other information like when connections are made etc. The tracing tool is really helpful when debugging your SignalR instance and also verifying that everything was properly sent.
+
+To use the tracing tool, go over to the "Live Trace Settings" under the "Monitoring" section on the left hand navigation of your Azure SignalR instance. You must first select the checkbox to turn on tracing, and then you can select the additional checkboxes for more detailed tracing information. With all of that selected, click the "save" button at the top.
 
 ![step 10](/images/AZURE_SIGNALR_STEP_10.jpg)
 
+You can now go back to the Azure console and check the "Activity Log" and see the messages sent.
+
+![step 9B](/images/AZURE_SIGNALR_STEP_9B.jpg)
+
+If you do not want to do anything more with your project, make sure to go back and delete the SignalR instance so you won't potentially incur unnecessary costs.
+
+![step 10](/images/AZURE_SIGNALR_STEP_10.jpg)
+
+With those values saved, you can now click the "Open LIve Trace Tool" button to view your traces. When you click that, it opens a new browser tab with the Live Trace Tool shown. Go back to your locally running app and type a few messages. Next go back to the Live Trace Tool to view the messages and connection info saved.
+
+![step 11](/images/AZURE_SIGNALR_STEP_11.jpg)
+
+## Cleaning up
+
+With all of the above setup, the next steps would be to deploy your functions and client app. Since the purpose of this post was to just get started, I'll leave those next steps up to you.
+
+To clean up your work, make sure to go back to the Azure console and access your SignalR instance and delete the value using the button at the top of the page.
+
+![step 12](/images/AZURE_SIGNALR_STEP_12.jpg)
+
 ## Wrapping Up
 
-This post was basically just a simple walkthrough of getting setup with Azure's SignalR service. There are a lot of options and cool things you can do with the Azure SignalR service. I recommend checking out the [Microsoft Docs on Azure](https://learn.microsoft.com/en-us/azure/azure-signalr/signalr-overview) as well as the sample project I've referenced here. Thanks for reading my post!
+This post was a simple walkthrough of getting setup with Azure's SignalR service. There are a lot of options and cool things you can do with the Azure SignalR service. I recommend checking out the [Microsoft Docs on Azure](https://learn.microsoft.com/en-us/azure/azure-signalr/signalr-overview) as well as the sample project I've referenced here. Thanks for reading my post!
