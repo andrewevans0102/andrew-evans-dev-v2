@@ -6,7 +6,7 @@ snippet: "I recently used Playwright on a project at work and wanted to talk
   Playwright is an End to End (e2e) testing framework that was brought to you
   from "
 heroImage: /images/playwright-logo-700x394.png
-tags: ["testing", "javascript"]
+tags: ["testing", "javascript", "playwright"]
 ---
 
 I recently used [Playwright](https://playwright.dev/docs/intro) on a project at work and wanted to talk about some of the cool things that it does. If you haven't heard about it, Playwright is an End to End (e2e) testing framework that was brought to you from the same team that originally worked on [Puppeteer](https://github.com/puppeteer/puppeteer).
