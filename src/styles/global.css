@@ -197,6 +197,12 @@ html.dark {
   color: var(--dark-color);
 }
 
+td {
+  min-width: 200px;
+  border: solid;
+  padding: 10px;
+}
+
 /* White: #ffffff
 Off-White/Light Gray: #f8f8f8 or #eaeaea
 Dark Gray: #333333 or #1c1c1c
