@@ -3,7 +3,7 @@ title: Intro to Azure Search
 pubDate: 2024-06-17T13:12:19.788Z
 snippet: "Azure AI Search (formerly Azure Cognitive Search) enables teams to improve the process of searching and analyzing data. Azure AI Search has a wide array of capabilities. I have been using Azure Search with an application I maintain, and wanted to put together a post that covers how Azure Search works and some"
 heroImage: /images/AZURE_SEARCH.png
-tags: ["azure", "python"]
+tags: ["azure"]
 ---
 
 Azure AI Search (formerly Azure Cognitive Search) enables teams to improve the process of searching and analyzing data. Azure AI Search has a wide array of capabilities. I have been using Azure Search with an application I maintain, and wanted to put together a post that covers how Azure Search works and some of its features at a high level. The following post will walkthrough setting up Azure AI Search on a dataset, and how you can start utilizing Azure AI Search for your projects.
